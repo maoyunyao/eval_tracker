@@ -20,24 +20,23 @@ numpy
 
 ### Tracking results placement
 
-Your tracking result should be placed on the ***Results*** folder, and you can name your result folder as the name of your tracker for convenience.
+Your tracking result should be placed on the ***Results*** folder, there are several subfolders corresponding to different datasets. You should name your result folder as the name of your tracker and place them to the right subfolder.
 
 ```shell
 |――Results
-	|――ATOM
-		|――default_1
-			|――Basketball.txt
-			|――...
-		|――default_2
-		|――default_3
-	|――DiMP18
-		|――Basketball.txt
-		|――...
-	|――DiMP50
-    	|――Basketball.txt
-		|――...
-	|―― ...
-
+	|――OTB100
+		|――ATOM
+			|――default_1
+				|――Basketball.txt
+				|――...
+			|――default_2
+			|――default_3
+			|―― ...
+		|―― ...
+	|――UAV123
+		|―― ...
+	|――LaSOT
+		|―― ...
 ```
 
 As you can see above, your tracking result may have several repeated attempts (as some trackers behave differently every time, for example ***ATOM*** ). The evaluator will output the average value for these kind of trackers.
@@ -46,33 +45,19 @@ As you can see above, your tracking result may have several repeated attempts (a
 
 ### Code modification
 
-To run this toolkit on your working space, you will have to do a little modification on the code. Let's take eval_otb for example:
+To run this toolkit on your working space, you will have to do a little modification on the code:
 
-- Find the following code in ***plot.py*** and replace OTB_path with your own path.
-
-```python
-###################################################
-# Here to implement the path to your OTB100 dataset
-###################################################
-OTB_path = "/media/myy/Data/OTB100"
-evalotb = EvalOTB(OTB_path)
-```
-
-- Find the following code in ***plot.py*** and implement your tracking result params. Remember if your tracking result has several repeated attempts, set the "repeat" value to True.
+- Find the following code in ***run.py*** and replace them with the path of your datasets.
 
 ```python
-##############################################################
-# Here to implement your result params
-# trackers[NAME] = {"path": PATH, "repeat": Bool}
-#   -PATH: Path to your tracking result
-#   -repeat: whether tracking result contains several repeats, 
-#			 if True, output the average result
-##############################################################
-trackers = {}
-trackers["ATOM"] = {"path": "/media/myy/Data/Repo/eval_otb/Results/ATOM", "repeat": True}
-trackers["DiMP18"] = {"path": "/media/myy/Data/Repo/eval_otb/Results/DiMP18", "repeat": False}
-trackers["DiMP50"] = {"path": "/media/myy/Data/Repo/eval_otb/Results/DiMP50", "repeat": False}
+#############################################
+# Here to implement the path to your datasets
+#############################################
+UAV123_path = "/data5/maoyy/dataset/UAV123"
+OTB100_path = "/data5/maoyy/dataset/OTB100"
+LaSOT_path = "/data5/maoyy/dataset/LaSOT"
 ```
+
 
 
 
@@ -81,7 +66,7 @@ trackers["DiMP50"] = {"path": "/media/myy/Data/Repo/eval_otb/Results/DiMP50", "r
 After all configurations done, you are able to run the following command to evaluate your tracking result:
 
 ```python
-python plot.py
+python run.py --dataset otb --output_path result_otb.png
 ```
 
 If setup correctly, the output will look like:

@@ -1,8 +1,6 @@
-from evaluation import EvalUAV123
 import matplotlib.pyplot as plt
 import numpy as np
 import os
-import argparse
 
 
 def plot(evaluater, trackers, output_path):
@@ -66,36 +64,7 @@ def plot(evaluater, trackers, output_path):
     ax[1].set_ylim(0.0, 1.0)
 
     if output_path:
-        filename = os.path.join(output_path, 'result.png')
+        filename = output_path
     else:
         filename = 'result.png'
     fig.savefig(filename)
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Draw success and precision plot on UAV123 dataset.')
-    parser.add_argument('--output_path', type=str, default=None, help='Path to save result png file.')
-
-    args = parser.parse_args()
-
-
-    ###################################################
-    # Here to implement the path to your UAV123 dataset
-    ###################################################
-    UAV123_path = "/data5/maoyy/dataset/UAV123"
-    evaluater = EvalUAV123(UAV123_path)
-
-    ##############################################################
-    # Here to implement your result params
-    # trackers[NAME] = {"path": PATH, "repeat": Bool}
-    #   -PATH: Path to your tracking result
-    #   -repeat: whether tracking result contains several repeats, 
-    #            if True, output the average result
-    ##############################################################
-    trackers = {}
-    trackers["ATOM"] = {"path": "/data5/maoyy/eval_tracker/eval_uav/Results/ATOM", "repeat": True}
-    #trackers["DiMP18"] = {"path": "/data5/maoyy/eval_tracker/eval_otb/Results/DiMP18", "repeat": False}
-    #trackers["DiMP50"] = {"path": "/data5/maoyy/eval_tracker/eval_otb/Results/DiMP50", "repeat": False}
-    
-
-    plot(evaluater, trackers, args.output_path)
