@@ -144,21 +144,36 @@ class EvalLaSOT:
 
     
     def compute_success(self, gt, result):
+        
+        # In lasot gt bbox, [0,0,0,0] means out of view?
+        in_view = ~(np.sum(gt, axis=1)==0)
+        gt = gt[in_view]
+        result = result[in_view]
+        
         iou_thresholds = np.arange(0, 1.05, 0.05)
-        frameNum = len(gt)
         score = np.zeros( len(iou_thresholds) )
         iou = IoU(gt, result)
+        frameNum = len(iou)
+
         for i in range(len(iou_thresholds)):
             score[i] = sum(iou > iou_thresholds[i]) / float(frameNum)
         return score
 
     def compute_precision(self, gt, result):
+        
+        # In lasot gt bbox, [0,0,0,0] means out of view?
+        in_view = ~(np.sum(gt, axis=1)==0)
+        gt = gt[in_view]
+        result = result[in_view]        
+        
         gtCenter = convert_bbox_to_center(gt)
         resultCenter = convert_bbox_to_center(result)
+        
         dist_thresholds = np.arange(0, 51, 1)
-        frameNum = len(gt)
         score = np.zeros( len(dist_thresholds) )
         dist = np.sqrt( np.sum(np.power(gtCenter-resultCenter, 2), axis=1) )
+        frameNum = len(dist)
+
         for i in range( len(dist_thresholds) ):
             score[i] = sum(dist <= dist_thresholds[i]) / float(frameNum)
         return score
