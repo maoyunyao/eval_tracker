@@ -1,4 +1,4 @@
-# eval_otb
+# eval_tracker
 A  python toolkit for evaluating your tracking result on datasets: 
 [OTB100](http://cvlab.hanyang.ac.kr/tracker_benchmark/datasets.html), 
 [LaSOT](https://cis.temple.edu/lasot/) and
