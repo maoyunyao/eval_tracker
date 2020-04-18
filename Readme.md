@@ -71,14 +71,14 @@ python run.py --dataset otb --output_path result_otb.png
 
 If setup correctly, the output will look like:
 
+Result on OTB100:
 ![](./.figs/result_otb.png)
 
-<center><i>Result on OTB100</i></center>
 
+Result on UAV123:
 ![](./.figs/result_uav.png)
 
-<center><i>Result on UAV123</i></center>
 
+Result on LaSOT:
 ![](./.figs/result_lasot.png)
 
-<center><i>Result on LaSOT</i></center>
