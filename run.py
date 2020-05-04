@@ -23,13 +23,13 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.dataset == "otb":
-        evaluater = EvalOTB(OTB100_path)
+        evaluator = EvalOTB(OTB100_path)
         result_path = os.path.join( os.getcwd(), "Results", "OTB100" )
     elif args.dataset == "uav":
-        evaluater = EvalUAV123(UAV123_path)
+        evaluator = EvalUAV123(UAV123_path)
         result_path = os.path.join( os.getcwd(), "Results", "UAV123" )
     elif args.dataset == "lasot":
-        evaluater = EvalLaSOT(LaSOT_path)
+        evaluator = EvalLaSOT(LaSOT_path)
         result_path = os.path.join( os.getcwd(), "Results", "LaSOT" )
     else:
         raise ValueError("Un recognized dataset type")
@@ -40,4 +40,4 @@ if __name__ == "__main__":
         repeat = False if len([ x for x in os.listdir(os.path.join(result_path, name)) if x.endswith("txt") ]) else True
         trackers[name] = {"path": os.path.join(result_path, name), "repeat": repeat}
     
-    plot(evaluater, trackers, args.output_path)
+    plot(evaluator, trackers, args.output_path)

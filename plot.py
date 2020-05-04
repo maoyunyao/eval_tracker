@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from tqdm import tqdm
 import os
 
 
@@ -10,7 +11,7 @@ def plot(evaluater, trackers, output_path):
     success_auc_dict = {}
     precision_auc_dict = {}
 
-    for name, param in trackers.items():
+    for name, param in tqdm(trackers.items()):
         if not param["repeat"]:
             success_dict[name], precision_dict[name] = evaluater.evaluate(param["path"])
             success_auc_dict[name] = success_dict[name].mean()
