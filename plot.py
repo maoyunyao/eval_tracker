@@ -28,7 +28,7 @@ def plot(evaluater, trackers, output_path):
             success_auc_dict[name] = success_dict[name].mean()
             precision_auc_dict[name] = precision_dict[name].mean()
 
-
+    print('Done!')
     ######################################
     # Draw success plot and precision plot
     ######################################
