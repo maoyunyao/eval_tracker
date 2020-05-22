@@ -38,7 +38,7 @@ def plot(evaluater, trackers, output_path):
     nx = 2
     ny = 1
     dxs = 8.0
-    dys = 5.0
+    dys = 6.0
     colors = [  'blue', 'red', 'green', 'orange', 'gray', 'black', 'cyan', 
                 'purple', 'navy', 'darkcyan', 'darkorchid', 'chocolate', 'burlywood']
     linestyles = ['-', '--', '-.']
@@ -46,26 +46,25 @@ def plot(evaluater, trackers, output_path):
 
     for name in success_dict:
         color = np.random.choice(colors)
-        colors.remove(color)
         linestyle = np.random.choice(linestyles)
         ax[0].plot(iou_thresholds, success_dict[name], color=color, lw=2.5, label=name+'[%.3f]'%success_auc_dict[name], linestyle=linestyle)
         ax[1].plot(dist_thresholds, precision_dict[name], color=color, lw=2.5, label=name+'[%.3f]'%precision_auc_dict[name], linestyle=linestyle)
     ax[0].set_title('Success Plot of OPE',fontsize=15)
     ax[0].set_xlabel('Overlap threshold', fontsize=15)
     ax[0].set_ylabel('Success rate', fontsize=15)
-    ax[0].legend(loc="lower left")
+    ax[0].legend(loc="lower left", fontsize=15)
     ax[0].set_xlim(0.0, 1.0)
     ax[0].set_ylim(0.0, 1.0)
 
     ax[1].set_title('Precision Plot of OPE',fontsize=15)
     ax[1].set_xlabel('Location error threshold', fontsize=15)
     ax[1].set_ylabel('Precision', fontsize=15)
-    ax[1].legend(loc="lower right")
+    ax[1].legend(loc="lower right", fontsize=15)
     ax[1].set_xlim(0, 50)
     ax[1].set_ylim(0.0, 1.0)
 
     if output_path:
         filename = output_path
     else:
-        filename = 'result.png'
+        filename = 'result.pdf'
     fig.savefig(filename)

@@ -146,10 +146,10 @@ class EvalLaSOT:
     
     def compute_success(self, gt, result):
         
-        # In lasot gt bbox, [0,0,0,0] means out of view?
-        in_view = ~(np.sum(gt, axis=1)==0)
-        gt = gt[in_view]
-        result = result[in_view]
+        # In lasot gt bbox, [_,_,0,0] means absent
+        precent = ~(np.sum(gt * np.array([0,0,1,1]), axis=1)==0)
+        gt = gt[precent]
+        result = result[precent]
         
         iou_thresholds = np.arange(0, 1.05, 0.05)
         score = np.zeros( len(iou_thresholds) )

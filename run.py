@@ -21,6 +21,7 @@ TPL_path = "/data5/maoyy/dataset/TempleColor128"
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Draw success and precision plot on the chosen dataset.')
     parser.add_argument('--dataset', type=str, default='otb', help='Which dataset to be evaluated on.')
+    parser.add_argument('--tracker', type=str, default=None, help='Names start with tracker will be evaluated.')
     parser.add_argument('--output_path', type=str, default=None, help='Path to save result png file.')
     parser.add_argument('--seq_len', type=int, default=-1, help='Truncated length of sequence.')
 
@@ -43,8 +44,11 @@ if __name__ == "__main__":
 
     trackers = {}
     tracker_names = [ x for x in os.listdir(result_path) if os.path.isdir(os.path.join(result_path, x)) ]
+    if args.tracker:
+        tracker_names = [name for name in tracker_names if name.startswith(args.tracker) ]
     for name in tracker_names:
         repeat = False if len([ x for x in os.listdir(os.path.join(result_path, name)) if x.endswith("txt") ]) else True
         trackers[name] = {"path": os.path.join(result_path, name), "repeat": repeat}
-    
+
+
     plot(evaluator, trackers, args.output_path)
